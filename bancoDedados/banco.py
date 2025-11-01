@@ -34,22 +34,10 @@ def criar_tabelas():
         PRIMARY KEY(id)
     );
     '''
+    
     #id_aluno, id_professor, Conducao/Resposta, Abraco, Mecanica, Ritmo, Marcacao
-    tabela_exame_condutor = '''
-    CREATE TABLE IF NOT EXISTS Exame_condutor (
-        id_aluno INTEGER NOT NULL,  
-        id_professor INTEGER NOT NULL,  
-        ConducaoResposta INTEGER NOT NULL,  
-        Abraco INTEGER NOT NULL,  
-        Mecanica INTEGER NOT NULL,  
-        Ritmo INTEGER NOT NULL,  
-        Marcacao INTEGER NOT NULL,
-        FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
-        FOREIGN KEY (id_professor) REFERENCES Professor(id)
-    );
-    '''
-    #id_aluno, id_professor, Conducao/Resposta, Abraco, Mecanica, Ritmo, Marcacao
-    tabela_exame_conduzido = '''
+    #Terminar!!!!
+    tabela_exame = '''
     CREATE TABLE IF NOT EXISTS Exame_conduzido (
         id_aluno INTEGER NOT NULL,  
         id_professor INTEGER NOT NULL,  
@@ -62,11 +50,19 @@ def criar_tabelas():
         FOREIGN KEY (id_professor) REFERENCES Professor(id)
     );
     '''
+    tabela_niveis = '''
+    CREATE TABLE IF NOT EXISTS Niveis(
+        id INTEGER NOT NULL, 
+        Cor VARCHAR(30) NOT NULL, 
+        FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
+        PRIMARY KEY (id)
+    );
+    '''
 
     cur.execute(tabela_aluno)
     cur.execute(tabela_professor)
-    cur.execute(tabela_exame_condutor)
-    cur.execute(tabela_exame_conduzido)
+    cur.execute(tabela_exame)
+    cur.execute(tabela_niveis)
 
     con.commit()
     print("Tabelas criadas")
