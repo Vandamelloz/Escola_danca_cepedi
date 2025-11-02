@@ -44,6 +44,7 @@ def criar_tabelas():
         Mecanica INTEGER NOT NULL,  
         Ritmo INTEGER NOT NULL,  
         Marcacao INTEGER NOT NULL,
+        data_exame DATE,
         FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
         FOREIGN KEY (id_professor) REFERENCES Professor(id)
     );
@@ -55,6 +56,7 @@ def criar_tabelas():
         nivel VARCHAR(30),
         id_aluno INTEGER NOT NULL,
         PRIMARY KEY(id),
+        data_modificacao DATE,
         FOREIGN KEY(id_aluno) REFERENCES aluno(id)
     );
     '''
