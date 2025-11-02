@@ -1,4 +1,5 @@
 import sqlite3
+from db.database import banco
 
 #Conectar/Criar banco de dados
 def conectar():
@@ -68,6 +69,7 @@ def criar_tabelas():
 
     con.commit()
     print("Tabelas criadas")
+     
 
 #Adicionar aluno
 def adicionar_aluno():
@@ -173,36 +175,43 @@ def modificar_nivel():
 
 #Parte principal do programa
 if __name__ == "__main__":
-
     opcao = -1
+    meu_banco = banco()  # instância da classe banco
 
     while opcao != 0:
-        print("1 - Adicionar aluno")
-        print("2 - Adicionar professor")
-        print("3 - Ver alunos")
-        print("4 - Alterar nível do aluno")
+        print("1 - Criar tabelas")
+        print("2 - Adicionar alunos")
+        print("3 - Adicionar professor")
+        print("4 - Ver alunos")
+        print("5 - Alterar nível do aluno")
         print("0 - Encerrar programa")
 
         try:
             opcao = int(input("Opção: "))
         except ValueError:
             print("Deve digitar um número inteiro")
-        else:
-            match opcao:
-                case 1:
-                    conectar()
-                    adicionar_aluno()
-                case 2:
-                    conectar()
-                    adicionar_professor()
-                case 3:
-                    conectar()
-                    ver_alunos()
-                case 4:
-                    conectar()
-                    modificar_nivel()
-                case 0:
-                    print("Encerrando... ")
-                    con.close()
-                case _:
-                    print("Opção inválida")
+            continue
+
+        match opcao:
+            case 1:
+                meu_banco.conectar()
+                nome = input("Digite o nome da nova tabela: ")
+                colunas = input("Digite as colunas no formato: 'id INTEGER PRIMARY KEY, nome TEXT, idade INTEGER': ")
+                meu_banco.criarTabela(nome, colunas) 
+            case 2:
+                conectar()
+                adicionar_aluno()
+            case 3:
+                conectar()
+                adicionar_professor()
+            case 4:
+                conectar()
+                ver_alunos()
+            case 5:
+                conectar()
+                modificar_nivel()
+            case 0:
+                print("Encerrando...")
+                meu_banco.deconectar()
+            case _:
+                print("Opção inválida")
