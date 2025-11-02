@@ -1,34 +1,41 @@
-#Necessário a importação do sqlite3
 import sqlite3
 
-#Classe que gerencia a conexão e a criação de tabelas no banco
 
 class banco():
     def __init__(self, banco: str = "escola_de_danca.db"):
         self.banco = banco
         self.con = None
-    
-    #conecta o banco de dados e envia a função con para o resto do programa
+
+    # Conecta o banco de dados
     def conectar(self):
         if self.con is None:
-            #não vou usar a função "isolation_level=None" para não deixar o autocommit ativado
             self.con = sqlite3.connect(self.banco)
             self.con.row_factory = sqlite3.Row
             self.con.execute("PRAGMA foreign_keys = ON")
         return self.con
-    
-    #desconecta o banco de dados
+
+    # Desconecta o banco
     def deconectar(self):
         if self.con:
             self.con.close()
             self.con = None
-    
-    #cria o cursor e envia para ser usado no resto do programa
+
+    # Cria e retorna cursor
     def meuCursor(self):
         if self.con is None:
             self.conectar()
-            return self.con.cursor()
-    
-    #vai criar as tabelas quando estiver pronta
-    def criarTabelas(self):
-        print("Por enquanto não fiz nada aqui")
+        return self.con.cursor()
+
+    # Método para criar uma tabela dinâmica
+    def criarTabela(self, nome: str, colunas: str):
+        if self.con:
+            cursor = self.con.cursor()
+            comando = f"CREATE TABLE IF NOT EXISTS {nome} ({colunas});"
+            try:
+                cursor.execute(comando)
+                self.con.commit()
+                print(f"Tabela '{nome}' criada com sucesso!")
+            except sqlite3.Error as e:
+                print(f"Erro ao criar a tabela: {e}")
+        else:
+            print("Conexão não estabelecida. Chame primeiro conectar().")
