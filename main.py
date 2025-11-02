@@ -34,11 +34,9 @@ def criar_tabelas():
         PRIMARY KEY(id)
     );
     '''
-    
     #id_aluno, id_professor, Conducao/Resposta, Abraco, Mecanica, Ritmo, Marcacao
-    #Terminar!!!!
     tabela_exame = '''
-    CREATE TABLE IF NOT EXISTS Exame_conduzido (
+    CREATE TABLE IF NOT EXISTS Exame_condutor (
         id_aluno INTEGER NOT NULL,  
         id_professor INTEGER NOT NULL,  
         ConducaoResposta INTEGER NOT NULL,  
@@ -50,12 +48,14 @@ def criar_tabelas():
         FOREIGN KEY (id_professor) REFERENCES Professor(id)
     );
     '''
+
     tabela_niveis = '''
-    CREATE TABLE IF NOT EXISTS Niveis(
-        id INTEGER NOT NULL, 
-        Cor VARCHAR(30) NOT NULL, 
-        FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
-        PRIMARY KEY (id)
+    CREATE IF NOT EXISTS Niveis (
+        id INTEGER NOT NULL,
+        nivel VARCHAR(30),
+        id_aluno INTEGER NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(id_aluno) REFERENCES aluno(id)
     );
     '''
 
@@ -178,6 +178,8 @@ if __name__ == "__main__":
         print("1 - Criar tabelas")
         print("2 - Adicionar aluno")
         print("3 - Adicionar professor")
+        print("4 - Ver alunos")
+        print("5 - Alterar nível do aluno")
         print("0 - Encerrar programa")
 
         try:
@@ -187,7 +189,7 @@ if __name__ == "__main__":
         else:
             match opcao:
                 case 1:
-                    conectar()
+                    conectar() #vou tirar esses conectar dos cases
                     criar_tabelas()
                 case 2:
                     conectar()
