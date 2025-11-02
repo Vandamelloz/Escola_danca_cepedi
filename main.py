@@ -44,6 +44,7 @@ def criar_tabelas():
         Mecanica INTEGER NOT NULL,  
         Ritmo INTEGER NOT NULL,  
         Marcacao INTEGER NOT NULL,
+        data_exame DATE,
         FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
         FOREIGN KEY (id_professor) REFERENCES Professor(id)
     );
@@ -55,6 +56,7 @@ def criar_tabelas():
         nivel VARCHAR(30),
         id_aluno INTEGER NOT NULL,
         PRIMARY KEY(id),
+        data_modificacao DATE,
         FOREIGN KEY(id_aluno) REFERENCES aluno(id)
     );
     '''
@@ -175,11 +177,10 @@ if __name__ == "__main__":
     opcao = -1
 
     while opcao != 0:
-        print("1 - Criar tabelas")
-        print("2 - Adicionar aluno")
-        print("3 - Adicionar professor")
-        print("4 - Ver alunos")
-        print("5 - Alterar nível do aluno")
+        print("1 - Adicionar aluno")
+        print("2 - Adicionar professor")
+        print("3 - Ver alunos")
+        print("4 - Alterar nível do aluno")
         print("0 - Encerrar programa")
 
         try:
@@ -189,18 +190,15 @@ if __name__ == "__main__":
         else:
             match opcao:
                 case 1:
-                    conectar() #vou tirar esses conectar dos cases
-                    criar_tabelas()
-                case 2:
                     conectar()
                     adicionar_aluno()
-                case 3:
+                case 2:
                     conectar()
                     adicionar_professor()
-                case 4:
+                case 3:
                     conectar()
                     ver_alunos()
-                case 5:
+                case 4:
                     conectar()
                     modificar_nivel()
                 case 0:
