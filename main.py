@@ -25,6 +25,7 @@ def criar_tabelas():
         PRIMARY KEY(id)
     );
     '''
+    print("Oi")
 
     # Nome, id, Avaliador
     tabela_professor = '''
