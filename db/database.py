@@ -1,7 +1,6 @@
 import sqlite3
 
-
-class banco():
+class Banco():
     def __init__(self, banco: str = "escola_de_danca.db"):
         self.banco = banco
         self.con = None
@@ -12,6 +11,7 @@ class banco():
             self.con = sqlite3.connect(self.banco)
             self.con.row_factory = sqlite3.Row
             self.con.execute("PRAGMA foreign_keys = ON")
+            print("Conectado ao banco de dados:", self.banco)
         return self.con
 
     # Desconecta o banco
@@ -27,7 +27,7 @@ class banco():
         return self.con.cursor()
 
     # Método para criar uma tabela dinâmica
-    def criarTabela(self, nome: str, colunas: str):
+    """ def criarTabela(self, nome: str, colunas: str): deixa aqui por enquanto como exemplo
         if self.con:
             cursor = self.con.cursor()
             comando = f"CREATE TABLE IF NOT EXISTS {nome} ({colunas});"
@@ -38,4 +38,4 @@ class banco():
             except sqlite3.Error as e:
                 print(f"Erro ao criar a tabela: {e}")
         else:
-            print("Conexão não estabelecida. Chame primeiro conectar().")
+            print("Conexão não estabelecida. Chame primeiro conectar().") """
