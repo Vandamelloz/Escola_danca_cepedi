@@ -71,6 +71,7 @@ class ControleBanco:
 
             con.commit()
         except sqlite3.Error as e:
+            con.rollback()
             print(f"Erro ao criar as tabelas: {e}")
             return
         else:
@@ -104,10 +105,14 @@ class ControleBanco:
             INSERT INTO Aluno (id, Matricula, Nome, Idade, Nivel_Condutor, Nivel_Conduzido, Data_nivel)
             VALUES (?, ?, ?, ?, ?, ?, ?);
             '''
-
-            cur.execute(inserir, (id, matricula, nome, idade, nivel_condutor, nivel_conduzido, data))
-            con.commit()
-            print("Aluno adicionado")
+            try:
+                cur.execute(inserir, (id, matricula, nome, idade, nivel_condutor, nivel_conduzido, data))
+                con.commit()
+                print("Aluno adicionado")
+            except sqlite3.Error as e:
+                con.rollback()
+                print(f"Erro ao adicionar aluno: {e}")
+                return
 
     #Adicionar professor ao banco de dados
     def adicionar_professor(self):
@@ -134,9 +139,14 @@ class ControleBanco:
             INSERT INTO Professor (Nome, id, Avaliador) VALUES (?, ?, ?);
             '''
 
-            cur.execute(inserir, (nome, id, avaliador))
-            con.commit()
-            print("Professor adicionado")
+            try:
+                cur.execute(inserir, (nome, id, avaliador))
+                con.commit()
+                print("Professor adicionado")
+            except sqlite3.Error as e:
+                con.rollback()
+                print(f"Erro ao adicionar professor: {e}")
+                return
     
     #Mostrar alunos através do id 
     def ver_alunos(self):
@@ -153,5 +163,9 @@ class ControleBanco:
             SELECT * FROM Aluno where id = {id};
             '''
 
-            for linha in cur.execute(aluno):
-                print(linha)
+            try:
+                for linha in cur.execute(aluno):
+                    print(linha)
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar aluno: {e}")
+                return

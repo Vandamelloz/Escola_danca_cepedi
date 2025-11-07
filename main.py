@@ -1,11 +1,13 @@
 #LOCAL IMPORTS
+import sqlite3
 from db.database import Banco
 from controle_banco.controle import ControleBanco
 
 #Parte principal do programa
 def main():
     opcao = -1
-    meu_banco = Banco() 
+    meu_banco = Banco()
+    controle = ControleBanco(meu_banco)  # Criando uma única instância do ControleBanco
 
     while opcao != 0:
         print("1 - Criar tabelas")
@@ -20,27 +22,29 @@ def main():
         except ValueError:
             print("Deve digitar um número inteiro")
             continue
-
-        match opcao: #ainda não organizei os casos !!!!!!!!!!!!!!!
-            case 1:
-                meu_banco.conectar()
-            case 2:
-                controle = ControleBanco(meu_banco)
-                controle.criar_tabelas()
-            case 3:
-                print("caso 3")
-            case 4:
-                print("caso 4")
-            case 5:
-                print("caso 5")
-            case 0:
-                if meu_banco.con:
-                    meu_banco.deconectar()
-                    print("Banco desconectado. Encerrando programa...")
-                else:
-                    print("Encerrando...")
-            case _:
-                print("Opção inválida") 
+        else:
+            match opcao: #ainda não organizei os casos !!!!!!!!!!!!!!!
+                case 1:
+                    try:
+                        meu_banco.conectar()
+                    except sqlite3.Error as e:
+                        print(f"Erro ao conectar ao banco de dados: {e}")
+                case 2:
+                    controle.criar_tabelas()
+                case 3:
+                    print("caso 3")
+                case 4:
+                    print("caso 4")
+                case 5:
+                    print("caso 5")
+                case 0:
+                    if meu_banco.con:
+                        meu_banco.deconectar()
+                        print("Banco desconectado. Encerrando programa...")
+                    else:
+                        print("Encerrando...")
+                case _:
+                    print("Opção inválida") 
 
 if __name__ == "__main__":
     main()
