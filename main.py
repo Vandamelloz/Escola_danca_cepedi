@@ -1,7 +1,7 @@
 #LOCAL IMPORTS
 import sqlite3
-from db.database import Banco
-from controle_banco.controle import ControleBanco
+from banco.database import Banco
+from controle_banco.bancoDAO import ControleBanco
 from controle_banco.professorDAO import ManipularProfessor
 from model.professor_classe import Professor 
 

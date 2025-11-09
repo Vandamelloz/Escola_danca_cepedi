@@ -10,7 +10,7 @@ class Banco():
         if self.con is None:
             self.con = sqlite3.connect(self.banco)
             self.con.row_factory = sqlite3.Row
-            self.con.execute("PRAGMA foreign_keys = ON")
+            self.con.execute("PRAGMA foreign_keys = OFF")
             print("Conectado ao banco de dados:", self.banco)
         return self.con
 
