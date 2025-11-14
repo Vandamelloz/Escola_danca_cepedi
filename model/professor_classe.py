@@ -1,11 +1,10 @@
-import sqlite3
-from db.database import Banco
-
 class Professor:
-    def __init__(self, nome:str, id:int, avaliador:str):
-        self.nome=nome
-        self.id=id
-        self.avaliador=avaliador.lower()
-    def __str(self):
-        (f"Nome do avaliador: {self.nome}, id: {self.id}, avaliador: {self.avaliador}")
+    def __init__(self, id: int, nome: str, avaliador: str):
+        self.id = id
+        self.nome = nome
+        self.avaliador = avaliador.lower()
+
+    def __str__(self):
+        return f"ID: {self.id} | Nome: {self.nome} | Avaliador: {self.avaliador}"
+
     
