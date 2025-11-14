@@ -22,7 +22,8 @@ class ControleBanco:
             Idade INTEGER,  
             Nivel_Condutor VARCHAR(20),
             Nivel_Conduzido VARCHAR(20),
-            Data_nivel DATE,  
+            dataNivelConduzido DATE,
+            dataNivelCondutor DATE,
             PRIMARY KEY(id)
         );
         '''
@@ -62,12 +63,18 @@ class ControleBanco:
             FOREIGN KEY(id_aluno) REFERENCES Aluno(id)
         );
         '''
+        tabela_admin= '''
+        CREATE TABLE IF NOT EXISTS Admin (
+            usuario TEXT PRIMARY KEY,
+            senha TEXT NOT NULL
+         );'''
 
         try: 
             cur.execute(tabela_aluno)
             cur.execute(tabela_professor)
             cur.execute(tabela_exame)
             cur.execute(tabela_niveis)
+            cur.execute(tabela_admin)
 
             con.commit()
         except sqlite3.Error as e:

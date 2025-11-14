@@ -7,6 +7,7 @@ class Exame:
   self.ritmo=ritmo
   self.marcacao=marcacao
   self.data_exame=data_exame
+  
  def __str(self):
    return (f"(Nota condução resposta: {self.conducao_resposta}, Nota abraco: {self.abraco}, )",
                 f"Nota mecânica da dança: {self.mecanica}, Nota para ritmo da dança {self.ritmo}",

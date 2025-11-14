@@ -1,17 +1,117 @@
-Necessidade de um controle de exames de mudança de nível
-🧍‍♀️ 1. Sobre a escola e os alunos
-*4 exames anuais
+# Requisitos — Controle de Exames de Mudança de Nível
 
+## 1. Visão geral
+Sistema para gerenciar exames de progressão de nível em uma escola de dança. Permite registrar exames, notas por critérios, históricos por aluno e controlar permissões (admin / professor / aluno).
 
+## 2. Resumo dos fluxos principais
+- Quatro exames anuais por aluno.
+- Cada exame registra notas por quesito (Condução, Abraço, Mecânica, Ritmo, Marcação).
+- Notas no intervalo 1.0 — 5.0.
+- Média mínima para aprovação: > 3.5.
 
-Níveis Branca, Amarela,vermelha, Azul, roxa e rosa
-pode ser dividido em condutor e conduzido 
-Apenas 1 professor avalia músicas lentas 
-Música média avaliada por 2 professores 
-Sem critérios, apenas para o último nível que deve ter um tempo mínimo de 6 meses na turma anterior para estar apto para fazer o exame 
-Administrador terá todos os privilégios, professores só têm acesso aos alunos que está avaliando, alunos só terão acesso aos seus dados 
-As notas vão de 1 a 5
-Uma turma por nível com seu devido horário
-Notas por quesitos 
-Nota>3.5 para ser aprovado 
+## 3. Níveis e turmas
+- Níveis: Branca, Amarela, Vermelha, Azul, Roxa, Rosa.
+- Cada nível corresponde a uma turma com horário definido.
+- Cada nível tem as funções de condutor e conduzido (aplicável quando houver pares).
 
+Regra especial:
+- Para o último nível (Rosa) aplica-se requisito adicional: tempo mínimo de permanência de 6 meses no nível anterior antes de poder realizar o exame final.
+
+## 4. Avaliação / regras de aplicação
+- Exames lentos: avaliados por 1 professor.
+- Exames de música média: avaliados por 2 professores.
+- Cada exame deve registrar: id_aluno, id_professor(es), data, notas por quesito, observações.
+- Registrar qual professor avaliou qual quesito (quando múltiplos avaliadores).
+
+## 5. Permissões e papéis
+- Administrador (Admin)
+  - Acesso total: criar/alterar/excluir usuários, professores, níveis, turmas, exames e relatórios.
+- Professor
+  - Pode lançar e editar exames apenas dos alunos que avalia.
+  - Pode visualizar histórico dos seus alunos.
+- Aluno
+  - Pode visualizar apenas seus próprios dados e histórico de exames (sem ver senhas nem informações sensíveis de outros usuários).
+
+## 6. Regras de negócio importantes
+- Média de exame é média aritmética das notas por quesito (ou conforme regra definida).
+- Aprovação = média > 3.5.
+- Validar integridade: um exame não pode ser gravado sem aluno ou sem avaliador válido.
+- Se exame tiver 2 avaliadores, calcular média combinada conforme regra (ex.: média simples das notas dos avaliadores ou peso definido).
+- Registrar timestamps (criação/atualização) e usuário que realizou alteração.
+
+## 7. Dados e restrições
+- Notas devem ser numéricas (float) entre 1.0 e 5.0.
+- Identificadores únicos para: aluno.id, professor.id, exame.id.
+- Auditoria mínima: quem criou/alterou o registro e quando.
+
+## 8. Relatórios e consultas
+- Histórico de exames por aluno (ordenado por data).
+- Listagem de exames por professor e por período.
+- Relatório de aprovação por turma/nivel.
+
+## 9. Observações operacionais
+- Implementar roles/auth (admin obrigatório para tarefas críticas).
+- Backup e migração: manter scripts de migração (scripts/) para alterações no esquema.
+- Internacionalização: textos e formatos de data/decimal conforme configuração local.
+
+---
+Coloquei este documento em formato Markdown (requisitos.md). Quer que eu gere também um esqueleto de tabelas SQL ou scripts de migração com base nesses requisitos?  
+```// filepath: /home/v-mellov/Escola_danca_cepedi/requisitos.md
+# Requisitos — Controle de Exames de Mudança de Nível
+
+## 1. Visão geral
+Sistema para gerenciar exames de progressão de nível em uma escola de dança. Permite registrar exames, notas por critérios, históricos por aluno e controlar permissões (admin / professor / aluno).
+
+## 2. Resumo dos fluxos principais
+- Quatro exames anuais por aluno.
+- Cada exame registra notas por quesito (Condução, Abraço, Mecânica, Ritmo, Marcação).
+- Notas no intervalo 1.0 — 5.0.
+- Média mínima para aprovação: > 3.5.
+
+## 3. Níveis e turmas
+- Níveis: Branca, Amarela, Vermelha, Azul, Roxa, Rosa.
+- Cada nível corresponde a uma turma com horário definido.
+- Cada nível tem as funções de condutor e conduzido (aplicável quando houver pares).
+
+Regra especial:
+- Para o último nível (Rosa) aplica-se requisito adicional: tempo mínimo de permanência de 6 meses no nível anterior antes de poder realizar o exame final.
+
+## 4. Avaliação / regras de aplicação
+- Exames lentos: avaliados por 1 professor.
+- Exames de música média: avaliados por 2 professores.
+- Cada exame deve registrar: id_aluno, id_professor(es), data, notas por quesito, observações.
+- Registrar qual professor avaliou qual quesito (quando múltiplos avaliadores).
+
+## 5. Permissões e papéis
+- Administrador (Admin)
+  - Acesso total: criar/alterar/excluir usuários, professores, níveis, turmas, exames e relatórios.
+- Professor
+  - Pode lançar e editar exames apenas dos alunos que avalia.
+  - Pode visualizar histórico dos seus alunos.
+- Aluno
+  - Pode visualizar apenas seus próprios dados e histórico de exames (sem ver senhas nem informações sensíveis de outros usuários).
+
+## 6. Regras de negócio importantes
+- Média de exame é média aritmética das notas por quesito (ou conforme regra definida).
+- Aprovação = média > 3.5.
+- Validar integridade: um exame não pode ser gravado sem aluno ou sem avaliador válido.
+- Se exame tiver 2 avaliadores, calcular média combinada conforme regra (ex.: média simples das notas dos avaliadores ou peso definido).
+- Registrar timestamps (criação/atualização) e usuário que realizou alteração.
+
+## 7. Dados e restrições
+- Notas devem ser numéricas (float) entre 1.0 e 5.0.
+- Identificadores únicos para: aluno.id, professor.id, exame.id.
+- Auditoria mínima: quem criou/alterou o registro e quando.
+
+## 8. Relatórios e consultas
+- Histórico de exames por aluno (ordenado por data).
+- Listagem de exames por professor e por período.
+- Relatório de aprovação por turma/nivel.
+
+## 9. Observações operacionais
+- Implementar roles/auth (admin obrigatório para tarefas críticas).
+- Backup e migração: manter scripts de migração (scripts/) para alterações no esquema.
+- Internacionalização: textos e formatos de data/decimal conforme configuração local.
+
+---
+Coloquei este documento em formato Markdown (requisitos.md). Quer que eu gere também um esqueleto de tabelas SQL ou scripts de migração com base nesses requisitos?  
