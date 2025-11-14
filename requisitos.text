@@ -113,5 +113,3 @@ Regra especial:
 - Backup e migração: manter scripts de migração (scripts/) para alterações no esquema.
 - Internacionalização: textos e formatos de data/decimal conforme configuração local.
 
----
-Coloquei este documento em formato Markdown (requisitos.md). Quer que eu gere também um esqueleto de tabelas SQL ou scripts de migração com base nesses requisitos?  
