@@ -1,5 +1,5 @@
 import sqlite3
-from banco.database import Banco
+from db.database import Banco
 
 #Controle de operações no banco de dados
 class ControleBanco:
@@ -20,11 +20,10 @@ class ControleBanco:
             Matricula INTEGER UNIQUE NOT NULL,
             Nome VARCHAR(50) NOT NULL,  
             Idade INTEGER,  
-            Nivel_Condutor INTEGER,
-            Nivel_Conduzido INTEGER,
-            Data_nivel DATE,
-            FOREIGN KEY(Nivel_Condutor) REFERENCES Niveis(id),
-            FOREIGN KEY(Nivel_Conduzido) REFERENCES Niveis(id), 
+            Nivel_Condutor VARCHAR(20),
+            Nivel_Conduzido VARCHAR(20),
+            dataNivelConduzido DATE,
+            dataNivelCondutor DATE,
             PRIMARY KEY(id)
         );
         '''
@@ -38,48 +37,44 @@ class ControleBanco:
             PRIMARY KEY(id)
         );
         '''
-        #id_exame, id_aluno, id_professor, tipo_exame, Conducao/Resposta, Abraco, Mecanica, Ritmo, Marcacao
+        #id_aluno, id_professor, Conducao/Resposta, Abraco, Mecanica, Ritmo, Marcacao
         tabela_exame = '''
-        CREATE TABLE IF NOT EXISTS Exame (
-            id_exame INTEGER UNIQUE AUTOINCREMENT,
+        CREATE TABLE IF NOT EXISTS Exame_condutor (
             id_aluno INTEGER NOT NULL,  
-            id_professor INTEGER NOT NULL,
-            tipo_exame INTEGER NOT NULL,
+            id_professor INTEGER NOT NULL,  
             ConducaoResposta INTEGER NOT NULL,  
             Abraco INTEGER NOT NULL,  
             Mecanica INTEGER NOT NULL,  
             Ritmo INTEGER NOT NULL,  
             Marcacao INTEGER NOT NULL,
             data_exame DATE,
-            PRIMARY KEY(id_exame),
             FOREIGN KEY (id_aluno) REFERENCES Aluno(id),
             FOREIGN KEY (id_professor) REFERENCES Professor(id)
         );
         '''
-
-        dadostabela_niveis = '''
-        CREATE TABLE IF NOT EXISTS dadostabela_niveis (
+        #id, nivel, id_aluno, data_modificacao
+        tabela_niveis = '''
+        CREATE TABLE IF NOT EXISTS Niveis (
             id INTEGER NOT NULL,
-            nome VARCHAR(30),
-            PRIMARY KEY(id);
-        )'''
-        
-        cores_niveis = """
-        INSERT TO Niveis (id, nome) VALUES 
-        (1, 'Branco'), 
-        (2, 'Amarelo'), 
-        (3, 'Vermelho'), 
-        (4, 'Azul'), 
-        (5, 'Roxo'), 
-        (6, 'Rosa');
-        """
+            nivel VARCHAR(30),
+            id_aluno INTEGER NOT NULL,
+            data_modificacao DATE,
+            PRIMARY KEY(id),
+            FOREIGN KEY(id_aluno) REFERENCES Aluno(id)
+        );
+        '''
+        tabela_admin= '''
+        CREATE TABLE IF NOT EXISTS Admin (
+            usuario TEXT PRIMARY KEY,
+            senha TEXT NOT NULL
+         );'''
 
         try: 
             cur.execute(tabela_aluno)
             cur.execute(tabela_professor)
             cur.execute(tabela_exame)
-            cur.execute(dadostabela_niveis)
-            cur.execute(cores_niveis)
+            cur.execute(tabela_niveis)
+            cur.execute(tabela_admin)
 
             con.commit()
         except sqlite3.Error as e:

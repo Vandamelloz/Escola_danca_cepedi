@@ -2,6 +2,8 @@ import sqlite3
 from model.niveis_classe import Niveis
 from model.aluno_classe import Aluno
 from db.database import Banco
+from model.exame_classe import Exame 
+
 
 
 class ManipularNiveis:

@@ -1,20 +1,17 @@
 
-class Aluno():
-
-    def __init__(self, nome: str, matricula: int, idade: int, 
-                 nivelCondutor: str = "Branco", nivelConduzido: str = "Branco", 
-                 dataNivelConduzido: str = "dd-mm-aaaa", dataNivelCondutor: str = "dd-mm-aaaa"):
-        
-        self.nome = nome
+class Aluno:
+    def __init__(self, id, matricula, nome, idade, nivelCondutor, nivelConduzido, dataNivelCondutor=None, dataNivelConduzido=None):
+        self.id = id
         self.matricula = matricula
+        self.nome = nome
         self.idade = idade
-        self.nivelConduzido = nivelConduzido
         self.nivelCondutor = nivelCondutor
-        self.dataNivelConduzido = dataNivelConduzido
+        self.nivelConduzido = nivelConduzido
         self.dataNivelCondutor = dataNivelCondutor
-    
+        self.dataNivelConduzido = dataNivelConduzido
+
     def __str__(self):
-        return (f"(nome: {self.nome}, matricula: {self.matricula}, )",
-                f"idade: {self.idade}, nivel conduzido: {self.nivelConduzido}",
-                f"nivel condutor: {self.nivelCondutor}, data que conduz: {self.dataNivelCondutor}",
-                f"data que é conduzido {self.dataNivelConduzido}")
+        return f"ID: {self.id} | Matrícula: {self.matricula} | Nome: {self.nome} | Idade: {self.idade} | Nível Condutor: {self.nivelCondutor} | Nível Conduzido: {self.nivelConduzido}"
+
+    def __repr__(self):
+        return self.__str__()
