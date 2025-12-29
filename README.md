@@ -1,10 +1,10 @@
-# 🩰 Projeto Alunos— Sistema de Avaliação (Escola de Dança) 
+# Projeto Alunos— Sistema de Avaliação (Escola de Dança) 
 
 Projeto desenvolvido como atividade prática do curso — backend-python CEPEDI VCA para gestão de alunos, professores e exames em uma escola de dança. Este repositório registra nosso aprendizado em Programação Orientada a Objetos (POO) e persistência com SQLite.
 
 ---
 
-## 🎯 Objetivos coloborativos deste projeto
+## Objetivos coloborativos deste projeto
 - Aplicar conceitos de POO em um projeto real (Model, DAO, Service);
 - Implementar padrões básicos (DAO, organização em camadas);
 - Praticar tratamento de persistência com SQLite e operações CRUD;
@@ -13,7 +13,7 @@ Projeto desenvolvido como atividade prática do curso — backend-python CEPEDI 
 
 ---
 
-## ⚙️ Funcionalidades (implementadas / em desenvolvimento)
+## Funcionalidades (implementadas / em desenvolvimento)
 - Cadastro, edição, listagem de alunos e professores
 - Registro de exames com critérios (condução, abraço, mecânica, ritmo, marcação)
 - Histórico de exames por aluno
