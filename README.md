@@ -83,6 +83,3 @@ Alunos: Francis Ricardo Silva, Helen da Cruz, Vanderléia Mello, Yan Mangabeira(
 
 ---
 
-## 📜 Licença
-Adicionar LICENSE conforme necessário (recomendado: MIT para projetos de estudo)
-
